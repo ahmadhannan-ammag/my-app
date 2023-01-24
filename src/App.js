@@ -33,7 +33,7 @@ function App() {
   const [modules, setmodules] = useState();
   const [balance, setbalance] = useState();
   const [messsage, setmesssage] = useState();
-  const [Input, setInput] = useState();
+  const [Input, setInput] = useState('');
 
   const getBalance = async (address) => {
     const resourceType1 = `0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>`;
@@ -153,14 +153,21 @@ function App() {
           isConnected && <div>
             <h1>Enter your message here</h1><br />
             <input
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => {
+                setInput(e.target.value)
+
+              }
+              }
               type="text"
               value={Input}
             />
             <br />
             <br />
             <Button onClick={() => {
-              sendTransaction()
+              if (Input) {
+
+                sendTransaction()
+              } else alert("Please enter a valid message")
             }} variant='secondary'>
               Submit
             </Button>
